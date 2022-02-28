@@ -1,6 +1,5 @@
 package pro.sky.Employee;
 
-
 import java.util.Objects;
 
 public class Employee {
