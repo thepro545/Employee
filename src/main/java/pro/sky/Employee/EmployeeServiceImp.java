@@ -2,28 +2,26 @@ package pro.sky.Employee;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EmployeeServiceImp implements EmployeeService {
 
-    private final Employee[] employees;
-    private int size;
+    private final List<Employee> employees;
 
     public EmployeeServiceImp() {
-        employees = new Employee[3];
+        employees = new ArrayList<>();
     }
 
     @Override
     public Employee add(String firstName, String lastName) {
         Employee newEmployee = new Employee(firstName, lastName);
-        if (size == employees.length) {
-            throw new EmployeeBookIsFullException();
-        }
-        int index = indexOf(newEmployee);
-
-        if (index != -1) {
+        if (employees.contains(newEmployee)) {
             throw new EmployeeExistException();
         }
-        employees[size++] = newEmployee;
+        employees.add(newEmployee);
+
         return newEmployee;
     }
 
@@ -31,36 +29,23 @@ public class EmployeeServiceImp implements EmployeeService {
     public Employee remove(String firstName, String lastName) {
         Employee newEmployee = new Employee(firstName, lastName);
 
-        int index = indexOf(newEmployee);
-        if (index != -1) {
-            Employee result = employees[index];
-            System.arraycopy(employees, index + 1, employees, index, size - index - 1);
-            employees[--size] = null;
-            return result;
-        } else {
+        if (!employees.remove(newEmployee)) {
             throw new EmployeeNotFoundException();
         }
+        return newEmployee;
     }
 
     @Override
     public Employee find(String firstName, String lastName) {
         Employee newEmployee = new Employee(firstName, lastName);
-        int index = indexOf(newEmployee);
-
-        if (index != -1) {
-            return employees[index];
-        } else {
+        if (!employees.contains(newEmployee)) {
             throw new EmployeeNotFoundException();
         }
+        return newEmployee;
     }
 
-
-    public int indexOf(Employee employee) {
-        for (int i = 0; i < size; i++) {
-            if (employees[i].equals(employee)) {
-                return i;
-            }
-        }
-        return -1;
+    @Override
+    public List<Employee> getAll(){
+        return List.copyOf(employees);
     }
 }
