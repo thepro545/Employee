@@ -21,7 +21,6 @@ public class EmployeeServiceImp implements EmployeeService {
             throw new EmployeeExistException();
         }
         employees.add(newEmployee);
-
         return newEmployee;
     }
 
@@ -38,6 +37,7 @@ public class EmployeeServiceImp implements EmployeeService {
     @Override
     public Employee find(String firstName, String lastName) {
         Employee newEmployee = new Employee(firstName, lastName);
+
         if (!employees.contains(newEmployee)) {
             throw new EmployeeNotFoundException();
         }
@@ -45,7 +45,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getAll(){
+    public List<Employee> getAll() {
         return List.copyOf(employees);
     }
 }
