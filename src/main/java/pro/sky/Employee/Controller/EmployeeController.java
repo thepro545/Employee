@@ -1,11 +1,13 @@
-package pro.sky.Employee;
+package pro.sky.Employee.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pro.sky.Employee.Data.Employee;
+import pro.sky.Employee.Service.EmployeeService;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/employee")
@@ -17,24 +19,24 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public String add(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        Employee result = employeeService.add(firstName, lastName);
+    public String addEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+        Employee result = employeeService.addEmployee(firstName,lastName);
         return generateMessage(result, "Добавлен");
     }
 
     @GetMapping(path = "/remove")
-    public String remove(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        Employee result = employeeService.remove(firstName, lastName);
+    public String removeEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+        Employee result = employeeService.removeEmployee(firstName, lastName);
         return generateMessage(result, "Удален");
     }
 
     @GetMapping(path = "/find")
-    public Employee find(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        return employeeService.find(firstName, lastName);
+    public Employee findEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+        return employeeService.findEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/all")
-    public List<Employee> getAll() {
+    public Collection<Employee> getAll() {
         return employeeService.getAll();
     }
 
