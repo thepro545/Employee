@@ -70,8 +70,9 @@ public class EmployeeServiceImp implements EmployeeService {
 //        getFullFio(employeeStorage); // Задание 8 F
 
 
-    public int getFullSalary(Employee employee) {
-        return IntStream.of(employee.getSalary())
+    public int getFullSalary() {
+        return getAllEmployees().stream()
+                .mapToInt(Employee::getSalary)
                 .sum();
     }
 
@@ -87,14 +88,12 @@ public class EmployeeServiceImp implements EmployeeService {
                 .orElseThrow(() -> new EmployeeNotFoundException("Сотрудник не найден"));
     }
 
-    // Тут проблемка. Не могу понять
-    public List<String> getAvgSalary(Employee employee) {
-        List<Integer> numForAvgSalary = getAllEmployees().stream()
-                .map(Employee::getSalary)
-                .collect(Collectors.toList());
-        return IntStream.of(numForAvgSalary)
-                .average()
-                .getAsDouble();
+    public OptionalDouble getAvgSalary(Employee employee) {
+//        return getAllEmployees().stream()
+//                .mapToInt(Employee::getSalary)
+//                .sum()/ employees.size();
+        return IntStream.of(employee.getSalary())
+                .average();
     }
 
     public List<String> getFullFio() {
