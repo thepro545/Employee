@@ -19,9 +19,11 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public String addEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        Employee result = employeeService.addEmployee(firstName,lastName);
-        return generateMessage(result, "Добавлен");
+    public Employee addEmployee(@RequestParam("firstName") String firstName,
+                              @RequestParam("lastName") String lastName,
+                              @RequestParam("salary") int salary,
+                              @RequestParam("department") int department) {
+        return employeeService.addEmployee(firstName, lastName, salary, department);
     }
 
     @GetMapping(path = "/remove")
@@ -36,14 +38,16 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/all")
-    public Collection<Employee> getAll() {
-        return employeeService.getAll();
+    public Collection<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 
     public String generateMessage(Employee employee, String status) {
-        return String.format("Сотрудник %s %s %s.",
+        return String.format("Сотрудник %s %s %s %s %s.",
                 employee.getFirstName(),
                 employee.getLastName(),
+                employee.getSalary(),
+                employee.getDepartment(),
                 status
         );
     }
