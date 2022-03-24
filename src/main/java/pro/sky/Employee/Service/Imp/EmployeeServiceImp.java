@@ -6,7 +6,7 @@ import pro.sky.Employee.Errors.EmployeeExistException;
 import pro.sky.Employee.Errors.EmployeeNotFoundException;
 import pro.sky.Employee.Service.EmployeeService;
 
-import javax.naming.InvalidNameException;
+import pro.sky.Employee.Errors.InvalidNameException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
