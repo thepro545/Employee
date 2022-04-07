@@ -68,14 +68,6 @@ public class EmployeeServiceImp implements EmployeeService {
         return firstName + " " + lastName;
     }
 
-//        getAllEmployees; // Задание 8 A
-//        float fullSalary = getFullSalary(employeeStorage); // Задание 8 B
-//        System.out.println("Сумма затрат на зарплаты в месяц = " + fullSalary + " рублей"); // Задание 8 B
-//        getMinSalary(employeeStorage); // Задание 8 C
-//        getMaxSalary(employeeStorage); // Задание 8 D
-//        getAvgSalary(fullSalary, employeeStorage); // Задание 8 E
-//        getFullFio(employeeStorage); // Задание 8 F
-
 
     public int getFullSalary() {
         return getAllEmployees().stream()
