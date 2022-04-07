@@ -6,11 +6,14 @@ import pro.sky.Employee.Errors.EmployeeExistException;
 import pro.sky.Employee.Errors.EmployeeNotFoundException;
 import pro.sky.Employee.Service.EmployeeService;
 
+import pro.sky.Employee.Errors.InvalidNameException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.Comparator.comparingInt;
+import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.isAlpha;
 
 @Service
 public class EmployeeServiceImp implements EmployeeService {
@@ -23,11 +26,15 @@ public class EmployeeServiceImp implements EmployeeService {
     @Override
     public Employee addEmployee(String firstName, String lastName, int salary, int department) {
         String key = getFio(firstName, lastName);
+        checkNames(firstName, lastName);
 
         if (employees.containsKey(key)) {
             throw new EmployeeExistException("Сотрудник уже существует");
         }
-        Employee newEmployee = employees.put(key, new Employee(firstName, lastName, salary, department ));
+        Employee newEmployee = employees.put(key, new Employee(
+                capitalize(firstName),
+                capitalize(lastName),
+                salary, department ));
         return newEmployee;
     }
 
@@ -93,5 +100,13 @@ public class EmployeeServiceImp implements EmployeeService {
         return getAllEmployees().stream()
                 .map(Employee::getFio)
                 .collect(Collectors.toList());
+    }
+
+    private void checkNames(String... names){
+        for (String name : names) {
+            if (!isAlpha(name)) {
+                throw new InvalidNameException(name);
+            }
+        }
     }
 }

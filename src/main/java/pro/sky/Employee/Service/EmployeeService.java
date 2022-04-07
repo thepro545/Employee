@@ -2,6 +2,7 @@ package pro.sky.Employee.Service;
 
 import pro.sky.Employee.Data.Employee;
 
+import javax.naming.InvalidNameException;
 import java.util.Collection;
 
 public interface EmployeeService {
